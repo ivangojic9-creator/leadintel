@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+leadintel.log
+leads.csv
+leads.db-journal
+.DS_Store

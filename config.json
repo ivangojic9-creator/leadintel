@@ -1,0 +1,164 @@
+{
+  "dry_run": true,
+  "notify_min_score": 45,
+  "max_post_age_days": 7,
+  "telegram": {
+    "bot_token": "SET_VIA_ENV_OR_SECRET",
+    "chat_id": "SET_VIA_ENV_OR_SECRET"
+  },
+  "platforms": {
+    "hackernews": {
+      "enabled": true,
+      "weight": 0.9,
+      "queries": [
+        "\"looking for a web designer\"",
+        "\"looking for a web developer\"",
+        "\"need a website\"",
+        "\"website redesign\"",
+        "\"landing page\" hire",
+        "\"seeking freelancer\" web"
+      ]
+    },
+    "reddit_search": {
+      "enabled": true,
+      "weight": 1.0,
+      "queries": [
+        "\"looking for a web designer\"",
+        "\"looking for a web developer\"",
+        "\"need someone to build\" website",
+        "\"website redesign\" recommend",
+        "\"need a shopify\"",
+        "\"hire a web\"",
+        "\"build me a website\"",
+        "\"landing page\" hiring"
+      ],
+      "time_window": "week"
+    },
+    "reddit_subs": {
+      "enabled": true,
+      "weight": 1.0,
+      "subreddits": [
+        "forhire",
+        "B2BForHire",
+        "jobbit",
+        "WebDeveloperJobs"
+      ],
+      "require_hiring_tag": true
+    },
+    "reddit_oauth": {
+      "enabled": false,
+      "client_id": "",
+      "client_secret": "",
+      "username_note": "Optional upgrade: create free app at reddit.com/prefs/apps (type: script) for reliable, ToS-clean access at 100 req/min"
+    },
+    "rss_feeds": {
+      "enabled": true,
+      "weight": 0.8,
+      "feeds": [],
+      "feeds_note": "Paste Google Alerts RSS URLs here (create at google.com/alerts, delivery = RSS feed). Suggested alerts: 'looking for a web designer', 'need a new website for my business', 'website redesign quote'"
+    },
+    "freelancer_api": {
+      "enabled": false,
+      "weight": 1.0,
+      "oauth_token": "",
+      "note": "Optional: free token at freelancer.com/api - searches active projects for web design/shopify"
+    }
+  },
+  "scoring": {
+    "strong_intent": [
+      "looking for a web designer",
+      "looking for a web developer",
+      "looking for someone to build",
+      "need a website",
+      "need a web designer",
+      "need a web developer",
+      "build me a website",
+      "hire a web designer",
+      "hire a web developer",
+      "recommendations for a web designer",
+      "recommend a web designer",
+      "website redesign",
+      "redesign my website",
+      "need a shopify",
+      "shopify expert needed",
+      "seeking freelancer",
+      "quotes for a website",
+      "need a landing page"
+    ],
+    "medium_intent": [
+      "need help with my website",
+      "website advice",
+      "who built your",
+      "improve my website",
+      "fix my website",
+      "my website is outdated",
+      "conversion rate",
+      "ecommerce store help",
+      "revamp my site"
+    ],
+    "urgency": [
+      "asap",
+      "urgent",
+      "urgently",
+      "this week",
+      "immediately",
+      "deadline",
+      "by friday",
+      "by monday"
+    ],
+    "hiring_tags": [
+      "[hiring]",
+      "[task]",
+      "hiring:"
+    ],
+    "offering_signals": [
+      "[for hire]",
+      "for hire",
+      "i am a web designer",
+      "i'm a web designer",
+      "i am a web developer",
+      "i'm a web developer",
+      "my agency",
+      "our agency",
+      "my portfolio",
+      "check out my portfolio",
+      "dm me for",
+      "i can build you",
+      "i build websites",
+      "we build websites",
+      "my services",
+      "offering my services",
+      "hire me",
+      "available for work",
+      "open to work",
+      "position",
+      "internship",
+      "looking for work",
+      "looking for a job",
+      "seeking a job",
+      "my resume",
+      "review my resume",
+      "per week gig",
+      "available to be hired",
+      "i can make you",
+      "[available]"
+    ],
+    "spam_signals": [
+      "crypto",
+      "casino",
+      "adult",
+      "onlyfans",
+      "guest post",
+      "backlinks for sale",
+      "seo packages",
+      "review: i used",
+      "my results)",
+      "vdfy",
+      "dfy review",
+      "digital marketing agency in",
+      "your partner for"
+    ]
+  },
+  "opening_message_template": "Hey {name} \u2014 saw your post about {service_short}. I build exactly this (recent work: {portfolio_url}). Want me to send over a quick concept for yours?",
+  "portfolio_url": "https://ivangojic9-creator.github.io/portfolio/"
+}

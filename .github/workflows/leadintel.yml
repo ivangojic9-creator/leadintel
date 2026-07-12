@@ -1,0 +1,32 @@
+name: LeadIntel Scan
+on:
+  schedule:
+    - cron: "0 * * * *"     # jede volle Stunde (UTC), 24/7, Mac-unabhängig
+  workflow_dispatch: {}       # + manueller Start-Button
+concurrency:
+  group: leadintel
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write         # damit leads.db zurückgepusht werden kann
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lead scan
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          LEADINTEL_LIVE: "1"
+        run: python3 run.py run
+      - name: Persist dedup DB
+        run: |
+          if [ -n "$(git status --porcelain leads.db)" ]; then
+            git config user.name "leadintel-bot"
+            git config user.email "leadintel@users.noreply.github.com"
+            git add leads.db
+            git commit -m "scan: update lead DB [skip ci]"
+            git push
+          else
+            echo "no new leads this run"
+          fi
