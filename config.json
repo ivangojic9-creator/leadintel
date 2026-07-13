@@ -18,7 +18,9 @@
         "\"landing page\" hire",
         "\"seeking freelancer\" web",
         "\"need a landing page\"",
-        "\"recommend a web designer\""
+        "\"recommend a web designer\"",
+        "\"hire a web developer\"",
+        "\"looking for someone to build\""
       ]
     },
     "reddit_search": {
@@ -42,7 +44,19 @@
         "\"help me with my website\"",
         "\"need a website for my business\"",
         "\"website for my small business\"",
-        "\"quote for a website\""
+        "\"quote for a website\"",
+        "\"recommend a web designer\"",
+        "\"who did your website\"",
+        "\"need help building a website\"",
+        "\"hire someone to build my\"",
+        "\"need a website built\"",
+        "\"need an ecommerce website\"",
+        "\"small business website\"",
+        "\"need help with my shopify\"",
+        "\"need a website for my\"",
+        "\"looking for someone to design my\"",
+        "\"can anyone build a website\"",
+        "\"need a simple website\""
       ],
       "time_window": "week"
     },
@@ -93,7 +107,15 @@
         "\"need a landing page\"",
         "\"hire a web designer\"",
         "\"shopify developer\"",
-        "\"need a new website\""
+        "\"need a new website\"",
+        "\"need a website built\"",
+        "\"who can build me a website\"",
+        "\"need help with my website\"",
+        "\"recommend a web designer\"",
+        "\"need a shopify store\"",
+        "\"need an online store\"",
+        "\"hire a web developer\"",
+        "\"need someone to build my website\""
       ]
     },
     "lemmy": {
@@ -104,7 +126,11 @@
         "website",
         "web designer",
         "landing page",
-        "shopify"
+        "shopify",
+        "need website",
+        "web design help",
+        "ecommerce",
+        "wordpress help"
       ]
     }
   },

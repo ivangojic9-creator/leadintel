@@ -21,6 +21,12 @@ def load_config():
         cfg["telegram"]["chat_id"] = cid
     if os.environ.get("LEADINTEL_LIVE") == "1":
         cfg["dry_run"] = False
+    # Freelancer.com token from env → enable the collector only when present.
+    fl = os.environ.get("FREELANCER_TOKEN")
+    if fl:
+        cfg["platforms"].setdefault("freelancer_api", {})
+        cfg["platforms"]["freelancer_api"]["oauth_token"] = fl
+        cfg["platforms"]["freelancer_api"]["enabled"] = True
     return cfg
 
 
