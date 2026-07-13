@@ -154,10 +154,79 @@ def freelancer_api(cfg):
                "published_ts": p.get("submitdate"), "budget": b}
 
 
+# ---------------- Bluesky (public AT-Protocol search — free, no auth) ----------
+
+def bluesky(cfg):
+    for q in cfg.get("queries", []):
+        url = ("https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts"
+               "?q=%s&sort=latest&limit=25" % http.quote(q))
+        data = http.get_json(url)
+        if not data:
+            continue
+        for p in data.get("posts", []):
+            rec = p.get("record", {})
+            author = p.get("author", {})
+            handle = author.get("handle", "")
+            rkey = p.get("uri", "").rsplit("/", 1)[-1]
+            if not handle or not rkey:
+                continue
+            ts = None
+            created = rec.get("createdAt") or p.get("indexedAt")
+            if created:
+                try:
+                    ts = int(time.mktime(time.strptime(created[:19], "%Y-%m-%dT%H:%M:%S")))
+                except ValueError:
+                    pass
+            text = rec.get("text", "")
+            yield {
+                "platform": "Bluesky",
+                "title": text[:80],
+                "text": text,
+                "author": author.get("displayName") or handle,
+                "url": "https://bsky.app/profile/%s/post/%s" % (handle, rkey),
+                "published_ts": ts,
+            }
+        time.sleep(1)
+
+
+# ---------------- Lemmy (Reddit-alternative, public API — free) ---------------
+
+def lemmy(cfg):
+    instance = cfg.get("instance", "https://lemmy.world")
+    for q in cfg.get("queries", []):
+        url = ("%s/api/v3/search?q=%s&type_=Posts&sort=New&limit=20"
+               % (instance, http.quote(q)))
+        data = http.get_json(url)
+        if not data:
+            continue
+        for item in data.get("posts", []):
+            post = item.get("post", {})
+            creator = item.get("creator", {})
+            body = (post.get("name", "") + " " + (post.get("body") or "")).strip()
+            ts = None
+            pub = post.get("published")
+            if pub:
+                try:
+                    ts = int(time.mktime(time.strptime(pub[:19], "%Y-%m-%dT%H:%M:%S")))
+                except ValueError:
+                    pass
+            yield {
+                "platform": "Lemmy",
+                "title": post.get("name", ""),
+                "text": body,
+                "author": creator.get("name"),
+                "url": post.get("ap_id") or post.get("url", ""),
+                "published_ts": ts,
+            }
+        time.sleep(1)
+
+
 REGISTRY = {
     "hackernews": hackernews,
     "reddit_search": reddit_search,
     "reddit_subs": reddit_subs,
+    "bluesky": bluesky,
+    "lemmy": lemmy,
     "rss_feeds": rss_feeds,
     "freelancer_api": freelancer_api,
 }

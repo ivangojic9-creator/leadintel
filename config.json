@@ -79,6 +79,33 @@
       "weight": 1.0,
       "oauth_token": "",
       "note": "Optional: free token at freelancer.com/api - searches active projects for web design/shopify"
+    },
+    "bluesky": {
+      "enabled": true,
+      "weight": 0.85,
+      "queries": [
+        "\"need a website\"",
+        "\"looking for a web designer\"",
+        "\"looking for a web developer\"",
+        "\"need a web designer\"",
+        "\"website redesign\"",
+        "\"build me a website\"",
+        "\"need a landing page\"",
+        "\"hire a web designer\"",
+        "\"shopify developer\"",
+        "\"need a new website\""
+      ]
+    },
+    "lemmy": {
+      "enabled": true,
+      "weight": 0.8,
+      "instance": "https://lemmy.world",
+      "queries": [
+        "website",
+        "web designer",
+        "landing page",
+        "shopify"
+      ]
     }
   },
   "scoring": {
