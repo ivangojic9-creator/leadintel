@@ -24,13 +24,24 @@ def score_lead(lead, rules, platform_weight, max_age_days):
     blob = ((lead.get("title") or "") + " " + (lead.get("text") or "")).lower()
     reasons = []
 
-    # ---- hard filters -------------------------------------------------
+    strong = _contains_any(blob, rules["strong_intent"])
+    medium = _contains_any(blob, rules["medium_intent"])
+    hiring = _contains_any(blob, rules["hiring_tags"])
+    offering = _contains_any(blob, rules["offering_signals"])
+    has_web = any(rx.search(blob) for rx, _ in SERVICE_MAP)
+
+    # ---- HARD FILTERS (precision-first: junk must die here) -----------
     if _contains_any(blob, rules["spam_signals"]):
         return None, ["spam signal"], {}
-    offering = _contains_any(blob, rules["offering_signals"])
-    strong = _contains_any(blob, rules["strong_intent"])
+    # 1) someone OFFERING services (competitor / for-hire / job seeker)
     if offering and not strong:
-        return None, ["service provider, not buyer: %s" % offering[0]], {}
+        return None, ["service provider / job seeker: %s" % offering[0]], {}
+    # 2) must actually be about a website/landing/shop — else off-topic
+    if not has_web:
+        return None, ["no web-service keyword (off-topic)"], {}
+    # 3) must show genuine BUYER intent — a web keyword alone isn't a lead
+    if not strong and not medium and not hiring:
+        return None, ["no buyer-intent phrase (not a request)"], {}
 
     age_days = None
     if lead.get("published_ts"):
@@ -39,23 +50,16 @@ def score_lead(lead, rules, platform_weight, max_age_days):
             return None, ["too old (%.0fd)" % age_days], {}
 
     # ---- scoring -------------------------------------------------------
-    score = 30
+    score = 35
     if strong:
-        score += 25
+        score += 28
         reasons.append("strong intent: '%s'" % strong[0])
-    medium = _contains_any(blob, rules["medium_intent"])
     if medium and not strong:
         score += 15
         reasons.append("medium intent: '%s'" % medium[0])
-    if not strong and not medium:
-        score -= 20
-        reasons.append("no clear intent phrase")
-    if _contains_any(blob, rules["hiring_tags"]):
-        score += 20
-        reasons.append("explicit hiring tag")
-    if offering:
-        score -= 30
-        reasons.append("mixed offering signals")
+    if hiring:
+        score += 18
+        reasons.append("hiring tag")
 
     extracted = {}
     m = BUDGET_RE.search(lead.get("text") or "")
