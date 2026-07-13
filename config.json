@@ -16,7 +16,9 @@
         "\"need a website\"",
         "\"website redesign\"",
         "\"landing page\" hire",
-        "\"seeking freelancer\" web"
+        "\"seeking freelancer\" web",
+        "\"need a landing page\"",
+        "\"recommend a web designer\""
       ]
     },
     "reddit_search": {
@@ -30,7 +32,17 @@
         "\"need a shopify\"",
         "\"hire a web\"",
         "\"build me a website\"",
-        "\"landing page\" hiring"
+        "\"landing page\" hiring",
+        "\"who can build a website\"",
+        "\"someone to build my website\"",
+        "\"need an online store\"",
+        "\"wordpress developer needed\"",
+        "\"web designer recommendations\"",
+        "\"looking for a website developer\"",
+        "\"help me with my website\"",
+        "\"need a website for my business\"",
+        "\"website for my small business\"",
+        "\"quote for a website\""
       ],
       "time_window": "week"
     },
@@ -41,7 +53,12 @@
         "forhire",
         "B2BForHire",
         "jobbit",
-        "WebDeveloperJobs"
+        "WebDeveloperJobs",
+        "smallbusiness",
+        "Entrepreneur",
+        "sweatystartup",
+        "ecommerce",
+        "shopify"
       ],
       "require_hiring_tag": true
     },
