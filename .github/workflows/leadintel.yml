@@ -1,7 +1,7 @@
 name: LeadIntel Scan
 on:
   schedule:
-    - cron: "0 * * * *"     # jede volle Stunde (UTC), 24/7, Mac-unabhängig
+    - cron: "0 */2 * * *"   # alle 2 Stunden (halbiert Minuten-Verbrauch)
   workflow_dispatch: {}       # + manueller Start-Button
 concurrency:
   group: leadintel
@@ -9,6 +9,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     permissions:
       contents: write         # damit leads.db zurückgepusht werden kann
     steps:
