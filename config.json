@@ -288,5 +288,5 @@
     ]
   },
   "opening_message_template": "Hey {name} \u2014 saw your post about {service_short}. I build exactly this (recent work: {portfolio_url}). Want me to send over a quick concept for yours?",
-  "portfolio_url": "https://ivangojic9-creator.github.io/portfolio/"
+  "portfolio_url": "https://ivangojic9-creator.github.io/ivan-portfolio/"
 }
